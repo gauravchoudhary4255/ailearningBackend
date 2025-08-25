@@ -1,14 +1,12 @@
 import mongoose, { connect, ConnectOptions } from 'mongoose';
 import getconfig from '../config';
 import Logger from '../logger';
-import { min } from 'lodash';
 
 class MongoBot {
   async init(): Promise<void> {
     try {
       const { MONGO_DB_NAME, MONGO_HOST, MONGO_PASSWORD } = getconfig();
       const connectionString = `mongodb+srv://gauravchoudhary4255:${MONGO_PASSWORD}@${MONGO_HOST}/${MONGO_DB_NAME}`;
-      Logger.info(connectionString, '<----connectionString---->');
       const options = {
         autoIndex: true,
         maxPoolSize: 10,

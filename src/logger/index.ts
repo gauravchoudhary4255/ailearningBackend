@@ -33,9 +33,9 @@ const format = winston.format.combine(
   // winston.format.colorize({ all: true })
   winston.format.printf(
     (info) => `${info.timestamp} ${info.level}: ${info.message}`
-  )
-  // winston.format.prettyPrint()
-  // winston.format.json()
+  ),
+  //  winston.format.prettyPrint(),
+  //  winston.format.json()
 );
 
 const mydate = new Date();
