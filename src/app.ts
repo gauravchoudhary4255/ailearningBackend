@@ -3,21 +3,22 @@ import express from 'express';
 import compression from 'compression';
 // import Controller from './interfaces/controller.interface';
 // import { errorMiddleware } from './middleware/responseAPI.middleware';
-// import mongodb from './connections/database';
-// import Logger from './logger';
+import mongodb from './connections/database';
+ import Logger from './logger';
 import cors from 'cors';
 // import morganMiddleware from './middleware/morgan.middleware';
-// import getconfig from './config';
+ import getconfig from './config';
 // import controllers from './api';
 import * as http from 'http';
 import * as https from 'https';
 import * as fs from 'fs';
+import { get } from 'lodash';
 // import { agenda } from './utils/agendaScheduling';
-// import { COMMON_CONSTANT, AGENDA_JOB_CONSTANT } from './constant';
+import { COMMON_CONSTANT, AGENDA_JOB_CONSTANT } from './constant';
 // import moment from 'moment';
 // import { initializeSocket } from './connections/socket';
 
-// process.env.TZ = COMMON_CONSTANT.INDIA_TIMEZONE;
+process.env.TZ = COMMON_CONSTANT.INDIA_TIMEZONE;
 
 class App {
   public app: express.Application;
@@ -38,7 +39,7 @@ class App {
   }
 
   private async connectToTheDatabase() {
-    // await mongodb.init();
+   await mongodb.init();
   }
 
   private async initializeMiddleware() {
@@ -61,8 +62,7 @@ class App {
   // }
 
   private async initializeServer() {
-    const HTTPS_KEY = "";
-    const HTTPS_CERT = "";
+    const {HTTPS_CERT ,HTTPS_KEY} = getconfig();
     this.server = http.createServer(this.app);
     if (HTTPS_KEY && HTTPS_CERT) {
       const KEY = fs.readFileSync(HTTPS_KEY);
@@ -77,60 +77,27 @@ class App {
   }
 
   public async listen(): Promise<void> {
-    const  PORT  = 5001;
+    const  {PORT  }= getconfig();
 
     this.server.listen(PORT, () => {
-     console.log(`App listening on the PORT ${PORT}`);
-      // Logger.info(`App listening on the PORT ${PORT}`);
+     Logger.info(`App listening on the PORT ${PORT}`);
     });
-
-    (async () => {
-      // IIFE to give access to async/await
-      // await agenda.start();
-
-      // schedule job for next day
-      // const jobName = AGENDA_JOB_CONSTANT.JOB_NAME_OBJ.DAILY_UPLOAD_LOGFILE;
-      // const uploadLogFileDate: any = moment().add(1, 'days').set({ hour: 0, minute: 1, second: 0, millisecond: 0 });
-
-      // await agenda.cancel({ name: jobName });
-      // const jobScheduleResult = await agenda.schedule(uploadLogFileDate, jobName, {});
-      // Logger.info(`Upload Log File ${jobScheduleResult}`);
-
-      // schedule job for TDS at the end of the financial year
-      // const TDSatTheEndOfTheFinancialYear = AGENDA_JOB_CONSTANT.JOB_NAME_OBJ.TDS_AT_THE_END_OF_THE_FINANCIAL_YEAR;
-
-      // const financialYearStart = moment.tz('Asia/Kolkata').month('April').date(1).startOf('day').format();
-      // const financialYearEnd = moment(financialYearStart).add(1, 'year').subtract(1, 'day').endOf('day').subtract(1, 'second').format();
-      // await agenda.cancel({ name: TDSatTheEndOfTheFinancialYear });
-      // const TDSatTheEndOfTheFinancialYearResult = await agenda.schedule(financialYearEnd, TDSatTheEndOfTheFinancialYear, {});
-
-      // // schedule job for next day for check uninstall count
-      // const uninstallJobName = AGENDA_JOB_CONSTANT.JOB_NAME_OBJ.DAILY_CHECK_UNINSTALL;
-      // const uninstallJobDateStr = moment().add(1, 'days').startOf('day').toDate();
-
-      // await agenda.cancel({ name: uninstallJobName });
-      // const uninstallJobResult = await agenda.schedule(uninstallJobDateStr, uninstallJobName, {});
-
-      // schedule a job every 4 hours for check phonepe pending transaction
-      // const phonepePendingTransaction = AGENDA_JOB_CONSTANT.JOB_NAME_OBJ.PHONEPE_PENDING_TRANSACTION;
-      // await agenda.every('6 hours', phonepePendingTransaction);
-    })();
   }
 }
 
 try {
   new App();
 } catch (e: any) {
-  // Logger.error(`Error on project startup: ${e.message}`);
+  Logger.error(`Error on project startup: ${e.message}`);
 }
 
 process
   .on('unhandledRejection', (response, p) => {
-    // Logger.error(response);
-    // Logger.error(p);
+     Logger.error(response);
+     Logger.error(p);
   })
   .on('uncaughtException', (err) => {
-    // Logger.error(err);
+     Logger.error(err);
   });
 
 export default App;
