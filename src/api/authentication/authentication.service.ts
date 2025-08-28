@@ -27,7 +27,7 @@ class AuthenticationService {
       const user = await this.user.findOne({ email }).lean();
       if (user) {
         const tokenData = await this.createToken(user);
-        return { user, tokenData };
+        return { tokenData };
       } else {
         return await this.createUser(email, 'User');
       }
@@ -42,10 +42,9 @@ class AuthenticationService {
       const user = await this.user.create({ email, userType });
       if (user) {
         const tokenData = await this.createToken(user);
-        return { user, tokenData };
+        return { tokenData };
       }
     } catch (err) {
-      // console.log(err , "checj this erppr")
       throw new HttpException(500, 'User creation failed');
     }
   };

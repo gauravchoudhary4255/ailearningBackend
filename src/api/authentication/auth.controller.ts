@@ -1,12 +1,13 @@
 import { Router, Response, Request, NextFunction } from 'express';
 import Controller from '../../interfaces/controller.interface';
+import { ROUTES ,STATUS_CODE} from '../../constant';
 import { successMiddleware } from '../../middleware/responseApi.middleware';
 import { SUCCESS_MESSAGES } from '../../constant';
 import AuthenticationValidation from './authentication.validation';
 import Logger from '../../logger';
 import AuthenticationService from './authentication.service';
 class AuthController implements Controller {
-  public path = '/auth';
+  public path = `/${ROUTES.AUTH}`;
   public router = Router();
   public authValidation = new AuthenticationValidation();
   public authService = new AuthenticationService();
@@ -30,24 +31,24 @@ class AuthController implements Controller {
     try {
       const { email, otp } = req.body;
       if (Number(otp) !== 9898) {
-        res.status(401);
+        res.status(STATUS_CODE.UNAUTHORIZED);
         throw new Error('Invalid OTP');
       }
-      const { user, tokenData } = await this.authService.checkUserAndLogin(
+      const tokenData  = await this.authService.checkUserAndLogin(
         email
       );
-      if (!user || !tokenData) {
-        res.status(500);
+      if ( !tokenData) {
+        res.status(STATUS_CODE.INTERNAL_SERVER_ERROR);
         throw new Error('Unable to login, please try again later');
       }
-      user['token'] = tokenData.token;
+      
       return successMiddleware(
         {
           message: SUCCESS_MESSAGES.LOGIN_SUCCESSFULLY.replace(
             ':attribute',
             'Login'
           ),
-          data: user
+          data: tokenData
         },
         req,
         res,
