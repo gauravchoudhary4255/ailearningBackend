@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import compression from 'compression';
 import Controller from './interfaces/controller.interface';
-import { errorMiddleware } from './middleware/responseApi.middleware';
+import { errorMiddleware ,serviceErrorMiddleware} from './middleware/responseApi.middleware';
 import mongodb from './connections/database';
 import Logger from './logger';
 import cors from 'cors';
@@ -13,6 +13,7 @@ import * as http from 'http';
 import * as https from 'https';
 import * as fs from 'fs';
 import { get } from 'lodash';
+
 // import { agenda } from './utils/agendaScheduling';
 import { COMMON_CONSTANT, AGENDA_JOB_CONSTANT } from './constant';
 // import moment from 'moment';
@@ -52,6 +53,7 @@ class App {
   }
 
   private async initializeErrorHandling() {
+    this.app.use(serviceErrorMiddleware);
     this.app.use(errorMiddleware);
   }
 

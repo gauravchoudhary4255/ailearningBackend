@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from 'express';
 import { STATUS_CODE, SUCCESS_MESSAGES, ERROR_MESSAGES } from '../constant';
+import HttpException from '../utils/httpException';
 
 interface ErrorHttpException {
   status?: number;
@@ -48,4 +49,20 @@ export const successMiddleware = (
     data: success.data
   });
   return false;
+};
+
+export const serviceErrorMiddleware = (
+  error: HttpException,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const statusCode = error.status;
+  const message = error.message || ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  res.status(statusCode).send({
+    message,
+    status: ERROR_MESSAGES.ERROR,
+    success: false,
+    statusCode
+  });
 };

@@ -2,6 +2,7 @@ import UserModel from '../user/user.model';
 import { User } from '../user/user.interface';
 import TokenData from '../../interfaces/tokenData.interface';
 import DataStoredInToken from '../../interfaces/dataStoredToken.interface';
+import HttpException from '../../utils/httpException';
 import getconfig from '../../config';
 const { JWT_SECRET, ENV } = getconfig();
 import jwt from 'jsonwebtoken';
@@ -21,35 +22,31 @@ class AuthenticationService {
     };
   }
 
-  public checkUserAndLogin = async (email: string) :Promise<any> => {
+  public checkUserAndLogin = async (email: string): Promise<any> => {
     try {
-      const user = await this.user.findOne({ emal: email }).exec();
+      const user = await this.user.findOne({ email }).lean();
       if (user) {
         const tokenData = await this.createToken(user);
-        return { tokenData };
+        return { user, tokenData };
       } else {
-        return this.createUser(email, 'User');
+        return await this.createUser(email, 'User');
       }
     } catch (error) {
-        Logger.error(`Unable to login for email: ${email} - ${error}`);
-      throw new Error('Unable to login, please try again later');
+      Logger.error(`Unable to login for email: ${email} - ${error}`);
+      throw new HttpException(500, 'Unable to login, please try again later');
     }
   };
 
-  public createUser = async (email: string, userType: string) => {
+  public createUser = async (email: string, userType: string): Promise<any> => {
     try {
       const user = await this.user.create({ email, userType });
-      if(!user){
-        throw new Error('User creation failed');
-      }
       if (user) {
         const tokenData = await this.createToken(user);
-        return { tokenData };
+        return { user, tokenData };
       }
-      return user;
     } catch (err) {
-        console.log(err , "checj this erppr")
-      throw new Error('User creation failed');
+      // console.log(err , "checj this erppr")
+      throw new HttpException(500, 'User creation failed');
     }
   };
 }

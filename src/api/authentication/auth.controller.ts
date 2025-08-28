@@ -33,19 +33,21 @@ class AuthController implements Controller {
         res.status(401);
         throw new Error('Invalid OTP');
       }
-      const checkUserAndLogin = await this.authService.checkUserAndLogin(email);
-      if(!checkUserAndLogin){
+      const { user, tokenData } = await this.authService.checkUserAndLogin(
+        email
+      );
+      if (!user || !tokenData) {
         res.status(500);
         throw new Error('Unable to login, please try again later');
       }
-
+      user['token'] = tokenData.token;
       return successMiddleware(
         {
           message: SUCCESS_MESSAGES.LOGIN_SUCCESSFULLY.replace(
             ':attribute',
             'Login'
           ),
-          data: checkUserAndLogin,
+          data: user
         },
         req,
         res,
