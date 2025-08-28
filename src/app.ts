@@ -74,8 +74,7 @@ class App {
       }
     }
 
-    // // Initialize Socket.IO
-    // await initializeSocket(this.server);
+    
   }
 
   public async listen(): Promise<void> {
