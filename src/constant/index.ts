@@ -15,7 +15,7 @@ import TIME_ZONES_LIST from './timeZones';
 import VALID_AGENT_ROLE_PERMISSION from './validAgentRolePermission';
 import SDK_CONSTANT from './sdkConstant';
 import AVATAR_CONSTANT from './avatarConstant';
-import GENRE_CONSTANT from './genreConstant'
+import GENRE_CONSTANT from './genreConstant';
 import ADMIN_USER_CONSTANT from './adminUserRoleConstant';
 import COUNTRY_CONSTANT from './countryConstant';
 import TRANSACTION_HISTORY_CONSTANT from './transactionHistoryConstant';
@@ -29,16 +29,15 @@ import INTERNAL_ADS from './internalAdsConstants';
 import DAILY_WHEEL_BONUS from './dailyWheelBonusConstant';
 import REFER_AND_EARN_CONSTANTS from './referAndEarnConstant';
 import USER_KYC from './userKYCConstant';
-import GAME_BUILD_CONSTANT from './gameBuild.constant';
+import PRODUCT_TYPES from './productAndServiceConstant';
 import MGP_RELEASE_CONSTANT from './mgpRelease.constant';
 import GAME_MODE_CONSTANT from './gameMode.constant';
-import LEVEL_ICON_CONSTANT from './levelConstant'
+import LEVEL_ICON_CONSTANT from './levelConstant';
 import SUPER_ADMIN_CONFIG from './superAdminConfig.constant';
 import HELP_AND_SUPPORT_CONSTANTS from './helpAndSupportConstants';
 import LOBBY_TYPE_CONSTANTS from './lobbyTypeConstants';
 import HOW_TO_PLAY_CONSTANTS from './howToPlayConstant';
 import USER_CLAIM_BONUS_CONSTANTS from './userClaimBonusConstatnt';
-import BANK_AND_UPI_CONSTANTS from './bankAndUPIConstants';
 import TDS_CONSTANT from './tds.constant';
 import USER_KYC_UPDATE_REQUEST_CONSTANT from './userKYCUpdateRequestConstant';
 import USER_GAME_RUNNING_STATUS_CONSTANT from './userGameRunningStatusConstant';
@@ -51,12 +50,12 @@ import PHONE_NUMBER_UPDATE_REQUEST_CONSTANT from './phoneNumberUpdateRequestCons
 import SPLASH_SCREEN_VIDEO_CONSTANT from './splashScreenVideoConstant';
 import INITIALIZE_SETUP_CONSTANT from './initializeSetupConstant';
 import MGP_HOW_TO_PLAY_CONSTANTS from './MGPHowToPlayConstant';
-import GAME_SERVER_API_CONSTANTS from './gameServerApiConstant'
+import GAME_SERVER_API_CONSTANTS from './gameServerApiConstant';
 import LEADERBOARD_BONUS_CONFIG_CONSTANT from './leaderboardBonusConfigConstants';
 import REFER_AND_EARN_MONTHLY_BONUS_CONFIG_CONSTANTS from './referAndEarnMonthlyBonusConfigConstant';
 import HOME_SCREEN_FOOTER_ICON_CONSTANTS from './homeScreenFooterIconConstant';
 import HOME_SCREEN_FOOTER_LOGO_CONSTANTS from './homeScreenFooterLogoConstant';
-import KYC_SCREEN_CONSTANT from './KYCScreenConstant'
+import KYC_SCREEN_CONSTANT from './KYCScreenConstant';
 import LOGIN_SCREEN_CONSTANTS from '../constant/loginScreenConstant';
 import WALLET_SCREEN_CONSTANTS from '../constant/walletScreenConstant';
 import REFER_AND_EARN_STEPS_CONSTANTS from './referAndEarnStepsConstant';
@@ -73,7 +72,7 @@ import PAYMENT_GATEWAY_CONSTANT from './paymentGatewayConstant';
 import ADD_DEPOSIT_CASH_CONSTANT from './addDepositCashConstant';
 import REFER_AND_EARN_SHARE_CONSTANT from './referAndEarnShareConfig.constant';
 import MGP_WALLET_HISTORY_CONSTANT from './mgpWalletHistoryConstant';
-import ADMIN_NOTIFICATION_CONSTANT from './adminNotificationConstant';
+
 import SPLASH_SCREEN_IMAGE_CONSTANT from './splashScreenImageConstant';
 import SANDBOX_TDS_CONSTANT from './sandboxTDSConstant';
 import WITHDRAW_MANUALLY_CONSTANT from './withdrawManuallyConstant';
@@ -82,8 +81,8 @@ import REPORT_REASON_CONSTANT from './reportReasonConstant';
 import TOURNAMENT_NOTIFICATION_CONSTANT from './tournamentNotification.constant';
 import REDIS_KEYS_CONSTANT from './redisKeyConstant';
 import SOCKET_CONSTANT from './socketConstant';
-import ADMIN_ACTIVITY_CONSTANT from "./adminActivityConstant";
-import NUMERICAL_CONSTANT from './numerical'
+
+import NUMERICAL_CONSTANT from './numerical';
 
 const PERMISSION = VALID_AGENT_ROLE_PERMISSION.PERMISSION;
 
@@ -120,7 +119,7 @@ const exportObject = Object.freeze({
   DAILY_WHEEL_BONUS,
   REFER_AND_EARN_CONSTANTS,
   USER_KYC,
-  GAME_BUILD_CONSTANT,
+
   MGP_RELEASE_CONSTANT,
   GAME_MODE_CONSTANT,
   LEVEL_ICON_CONSTANT,
@@ -129,7 +128,7 @@ const exportObject = Object.freeze({
   LOBBY_TYPE_CONSTANTS,
   HOW_TO_PLAY_CONSTANTS,
   USER_CLAIM_BONUS_CONSTANTS,
-  BANK_AND_UPI_CONSTANTS,
+
   TDS_CONSTANT,
   USER_KYC_UPDATE_REQUEST_CONSTANT,
   USER_GAME_RUNNING_STATUS_CONSTANT,
@@ -164,7 +163,7 @@ const exportObject = Object.freeze({
   ADD_DEPOSIT_CASH_CONSTANT,
   REFER_AND_EARN_SHARE_CONSTANT,
   MGP_WALLET_HISTORY_CONSTANT,
-  ADMIN_NOTIFICATION_CONSTANT,
+
   SPLASH_SCREEN_IMAGE_CONSTANT,
   SANDBOX_TDS_CONSTANT,
   WITHDRAW_MANUALLY_CONSTANT,
@@ -173,7 +172,7 @@ const exportObject = Object.freeze({
   TOURNAMENT_NOTIFICATION_CONSTANT,
   REDIS_KEYS_CONSTANT,
   SOCKET_CONSTANT,
-  ADMIN_ACTIVITY_CONSTANT,
+  PRODUCT_TYPES ,
   NUMERICAL_CONSTANT
 });
 

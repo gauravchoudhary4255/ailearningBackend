@@ -54,7 +54,7 @@ class App {
 
   private async initializeErrorHandling() {
     this.app.use(serviceErrorMiddleware);
-    this.app.use(errorMiddleware);
+    // this.app.use(errorMiddleware);
   }
 
   private async initializeControllers() {

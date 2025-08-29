@@ -1,7 +1,8 @@
 export = Object.freeze({
   AUTH: 'auth',
   USER: 'users',
-  GAME: 'game',
+  PRODUCT: 'product',
+  SERVICES : 'services',
   TOURNAMENT: 'tournament',
   TOURNAMENT_REGISTRATION: 'tournamentRegistration',
   TOURNAMENT_GST_HISTORY: 'tournamentGstHistory',

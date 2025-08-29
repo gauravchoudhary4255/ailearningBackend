@@ -6,6 +6,8 @@ import { SUCCESS_MESSAGES } from '../../constant';
 import AuthenticationValidation from './authentication.validation';
 import Logger from '../../logger';
 import AuthenticationService from './authentication.service';
+import HttpException from '../../utils/httpException';
+import { loggers } from 'winston';
 class AuthController implements Controller {
   public path = `/${ROUTES.AUTH}`;
   public router = Router();
@@ -31,15 +33,13 @@ class AuthController implements Controller {
     try {
       const { email, otp } = req.body;
       if (Number(otp) !== 9898) {
-        res.status(STATUS_CODE.UNAUTHORIZED);
-        throw new Error('Invalid OTP');
+        throw new HttpException( STATUS_CODE.UNAUTHORIZED ,'Invalid OTP');
       }
       const tokenData  = await this.authService.checkUserAndLogin(
         email
       );
       if ( !tokenData) {
-        res.status(STATUS_CODE.INTERNAL_SERVER_ERROR);
-        throw new Error('Unable to login, please try again later');
+        throw new HttpException(STATUS_CODE.INTERNAL_SERVER_ERROR,'Unable to login, please try again later');
       }
       
       return successMiddleware(
@@ -55,7 +55,8 @@ class AuthController implements Controller {
         next
       );
     } catch (error) {
-      return next(error);
+      Logger.error(`Error in GetGames controller ${error}`)
+       next(error);
     }
   };
 }

@@ -1,3 +1,4 @@
 import AuthController from './authentication/auth.controller';
 import UserController from './user/user.controller';
-export = [new AuthController(), new UserController()];
+import ProductContoller from './product/product.controller';
+export = [new AuthController(), new UserController() , new ProductContoller()];

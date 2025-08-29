@@ -65,4 +65,5 @@ export const serviceErrorMiddleware = (
     success: false,
     statusCode
   });
+  return false;
 };

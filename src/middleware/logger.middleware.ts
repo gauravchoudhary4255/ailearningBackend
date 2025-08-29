@@ -1,9 +1,9 @@
-// import { NextFunction, Request } from 'express';
-// import Logger from '../logger';
+import { NextFunction, Request } from 'express';
+import Logger from '../logger';
 
-// const loggerMiddleware = (request: Request, next: NextFunction): void => {
-//   Logger.warn(`${request.method} ${request.path}`);
-//   return next();
-// };
+const loggerMiddleware = (request: Request, next: NextFunction): void => {
+  Logger.warn(`${request.method} ${request.path}`);
+  return next();
+};
 
-// export default loggerMiddleware;
+export default loggerMiddleware;
