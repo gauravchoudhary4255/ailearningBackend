@@ -7,7 +7,7 @@ import AuthenticationValidation from './authentication.validation';
 import Logger from '../../logger';
 import AuthenticationService from './authentication.service';
 import HttpException from '../../utils/httpException';
-import { loggers } from 'winston';
+
 class AuthController implements Controller {
   public path = `/${ROUTES.AUTH}`;
   public router = Router();

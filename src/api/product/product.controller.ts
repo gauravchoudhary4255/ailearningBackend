@@ -1,13 +1,38 @@
 import { NextFunction, Router, Request, Response } from 'express';
 import Controller from '../../interfaces/controller.interface';
-import { ROUTES, STATUS_CODE, SUCCESS_MESSAGES } from '../../constant';
+import { ROUTES, STATUS_CODE, SUCCESS_MESSAGES ,USER_CONSTANT} from '../../constant';
 import { Product } from './product.interfaces';
 import ProductServices from './product.services';
 import { successMiddleware } from '../../middleware/responseApi.middleware';
 import ProductAndServicesValidation from './product.validation';
 import { PRODUCT_TYPES } from '../../constant';
+import authMiddleware from '../../middleware/auth.middleware';
 import HttpException from '../../utils/httpException';
 import Logger from '../../logger';
+import roleMiddleware from '../../middleware/role.middleware';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+
+
+const uploadPath = path.join(__dirname, "../../../uploads");
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadPath); // save files in uploads folder
+  },
+  filename: function (req, file, cb) {
+    const datetimestamp = Date.now();
+    const ext = file.mimetype.split("/").pop(); // file extension
+    cb(null, `${file.fieldname}-${datetimestamp}-${Math.floor(Math.random() * 10000)}.${ext}`);
+  },
+});
+
+const upload = multer({ storage });
+// const upload = multer({ storage: multer.memoryStorage() })
 class ProductContoller implements Controller {
   path = `/${ROUTES.PRODUCT}`;
   router = Router();
@@ -20,23 +45,29 @@ class ProductContoller implements Controller {
   public initializeRoutes() {
     this.router.post(
       `${this.path}/createPrdouctAndCourses`,
+       authMiddleware,
+       roleMiddleware([[USER_CONSTANT.ROLES.admin]]),
+       upload.single('image'),
       this.productAndServiceValidation.createProductAndCoursesValidation(),
       this.createPrdouctAndCourses
-    );
+    );   
 
     this.router.get(
       `${this.path}/getAllProductsAndServices`,
+      authMiddleware,
       this.getAllProductsAndServices
     );
 
     this.router.post(
         `${this.path}/getProductAndServiceById`,
+        authMiddleware,
         this.productAndServiceValidation.getProductAndServiceBy(),
         this.getProductAndServiceById
     )
 
     this.router.post(
       `${this.path}/deleteProductAndServiceById`,
+      authMiddleware,
       this.productAndServiceValidation.getProductAndServiceBy(),
       this.deleteProductAndServiceById
     )
@@ -53,19 +84,19 @@ class ProductContoller implements Controller {
         description,
         price,
         category,
-        image,
         inStock,
         rating,
         numberOfProducts,
         type
       } = req.body;
-
+      const image = req.file;
+       console.log("req.file",image);
       const productData: Product = {
         name,
         description,
         price,
         category,
-        image,
+        image : req.file ? req.file.path : '',
         inStock,
         rating,
         numberOfProducts,

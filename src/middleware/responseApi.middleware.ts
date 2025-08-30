@@ -57,7 +57,7 @@ export const serviceErrorMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const statusCode = error.status;
+  const statusCode = error.status || STATUS_CODE.UNAUTHORIZED;
   const message = error.message || ERROR_MESSAGES.SOMETHING_WENT_WRONG;
   res.status(statusCode).send({
     message,

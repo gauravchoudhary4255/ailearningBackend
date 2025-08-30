@@ -4,7 +4,7 @@ export default class HttpException extends Error {
   
     constructor(status: number, message: string) {
       super(message);
-      this.status = status;
+      this.status = status || 500;
       this.message = message;
   
       // Ensure prototype chain works

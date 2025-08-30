@@ -40,6 +40,10 @@ class ProductAndServicesValidation {
         .withMessage("category must be a string"),
 
       body("image")
+      .notEmpty()
+      .withMessage(
+        ERROR_MESSAGES.COMMON.REQUIRED.replace(":attribute", "image")
+      )
         .optional()
         .isString()
         .withMessage("image must be a string"),
