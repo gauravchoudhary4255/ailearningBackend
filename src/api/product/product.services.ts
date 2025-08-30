@@ -6,7 +6,7 @@ import { STATUS_CODE } from "../../constant";
 class ProductServices {
     public product = ProductModel;
 
-    addProductServices = async(product : Product)=>{
+addProductServices = async(product : Product)=>{
         try{ 
             return this.product.create(product);
         }catch(err){
@@ -15,7 +15,7 @@ class ProductServices {
         }
     }
 
-  checkProductNameExist = async(name : string)=>{
+checkProductNameExist = async(name : string)=>{
      try{
         const productData = await this.product.findOne({name}).lean();
         return productData;
@@ -24,7 +24,7 @@ class ProductServices {
          throw new HttpException(STATUS_CODE.INTERNAL_SERVER_ERROR,"Internal Server Error");
      }
   }
-    getProductsAndServices = async()=>{
+getProductsAndServices = async()=>{
         try{
             return this.product.find().lean();
         }catch(err){
@@ -33,11 +33,9 @@ class ProductServices {
         }
     }
 
-    getProductServiceById = async(_id : string)=>{
+getProductServiceById = async(_id : string)=>{
         try{
-            console.log("_id",_id);
             const data = await  this.product.findById(_id).lean();
-            console.log("data",data);
             if(!data){
                 throw new HttpException(STATUS_CODE.NOT_FOUND,"Product or Service not found");
             }
@@ -45,6 +43,22 @@ class ProductServices {
             
         }catch(error){
            Logger.error("Error in getProductServiceById service",error);
+            throw error;
+        }
+    }
+
+
+
+    deleteProductById = async(_id : string)=>{
+        try{
+            const data = await this.product.findByIdAndDelete(_id).lean();
+            if(!data){
+                throw new HttpException(STATUS_CODE.NOT_FOUND,"Product or Service not found");
+            }
+            return data
+            
+        }catch(error){
+           Logger.error("Error in deleteProductById service",error);
             throw error;
         }
     }

@@ -34,6 +34,12 @@ class ProductContoller implements Controller {
         this.productAndServiceValidation.getProductAndServiceBy(),
         this.getProductAndServiceById
     )
+
+    this.router.post(
+      `${this.path}/deleteProductAndServiceById`,
+      this.productAndServiceValidation.getProductAndServiceBy(),
+      this.deleteProductAndServiceById
+    )
   }
 
   public createPrdouctAndCourses = async (
@@ -162,7 +168,20 @@ class ProductContoller implements Controller {
     next: NextFunction
   ) => {
     try {
-    } catch (err) {}
+      const {_id} = req.body;
+      const deleteData = await this.productServices.deleteProductById(_id);
+      return successMiddleware(
+        {
+          message: 'Product and Service deleted successfully',
+          data: deleteData
+        },
+        req,
+        res,
+        next
+      );
+    } catch (err){
+      next(err);
+    }
   };
 }
 
