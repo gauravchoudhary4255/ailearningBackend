@@ -17,6 +17,7 @@ interface ConfigEnvironment {
   MONGO_PASSWORD: string;
   MONGO_HOST?: string;
   MONGO_DB_NAME?: string;
+  GEMINI_API_KEY ?: string;
 }
 
 interface WINSTON {

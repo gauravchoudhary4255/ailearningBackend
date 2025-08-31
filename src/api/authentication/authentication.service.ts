@@ -24,11 +24,13 @@ class AuthenticationService {
 
   public checkUserAndLogin = async (email: string): Promise<any> => {
     try {
-      const user = await this.user.findOne({ email }).lean();
+      const user = await this.user.findOne({ email :email }).lean();
+      console.log("User found:", user);
       if (user) {
         const tokenData = await this.createToken(user);
         return { tokenData };
       } else {
+        console.log("Creating new user as not found")
         return await this.createUser(email, 'User');
       }
     } catch (error) {
@@ -45,6 +47,7 @@ class AuthenticationService {
         return { tokenData };
       }
     } catch (err) {
+      Logger.error(`Error in createUser service: ${err} and stack: ${err}`);
       throw new HttpException(500, 'User creation failed');
     }
   };

@@ -12,7 +12,7 @@ import controllers from './api';
 import * as http from 'http';
 import * as https from 'https';
 import * as fs from 'fs';
-import { get } from 'lodash';
+
 
 // import { agenda } from './utils/agendaScheduling';
 import { COMMON_CONSTANT, AGENDA_JOB_CONSTANT } from './constant';
@@ -36,6 +36,7 @@ class App {
     ]).then(() => {
       this.initializeServer();
       this.listen();
+      this.initializeHealthCheck();
     });
   }
 
@@ -76,12 +77,18 @@ class App {
 
     
   }
+ 
 
   public async listen(): Promise<void> {
     const { PORT } = getconfig();
 
     this.server.listen(PORT, () => {
       Logger.info(`App listening on the PORT ${PORT}`);
+    });
+  }
+  private async initializeHealthCheck() {
+    this.app.get("/test", (req, res) => {
+      res.send(`<h1>Test Done Check this 20 may 02:54pm </h1><p></p>`);
     });
   }
 }

@@ -214,6 +214,8 @@ class ProductContoller implements Controller {
       next(err);
     }
   };
+
+  
 }
 
 export default ProductContoller;

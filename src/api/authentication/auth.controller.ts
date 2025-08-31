@@ -54,8 +54,8 @@ class AuthController implements Controller {
         res,
         next
       );
-    } catch (error) {
-      Logger.error(`Error in GetGames controller ${error}`)
+    } catch (error : any) {
+      Logger.error(`Error in Login controller ${error}`)
        next(error);
     }
   };

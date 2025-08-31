@@ -20,7 +20,8 @@ const DEVELOPMENT = (): ConfigEnvironment => {
     REDIS_DB,
     MONGO_PASSWORD,
     MONGO_HOST,
-    MONGO_DB_NAME
+    MONGO_DB_NAME,
+    GEMINI_API_KEY
   } = process.env;
 
   return {
@@ -40,9 +41,10 @@ const DEVELOPMENT = (): ConfigEnvironment => {
     HTTPS_SERVER_KEY_PATH: HTTPS_SERVER_KEY_PATH ? HTTPS_SERVER_KEY_PATH : '',
     HTTPS_KEY: HTTPS_KEY || '',
     HTTPS_CERT: HTTPS_CERT || '',
-    MONGO_PASSWORD : MONGO_PASSWORD || " ",
-     MONGO_HOST : MONGO_HOST,
-MONGO_DB_NAME : MONGO_DB_NAME,
+    MONGO_PASSWORD: MONGO_PASSWORD || ' ',
+    MONGO_HOST: MONGO_HOST,
+    MONGO_DB_NAME: MONGO_DB_NAME,
+    GEMINI_API_KEY: GEMINI_API_KEY || ''
   };
 };
 

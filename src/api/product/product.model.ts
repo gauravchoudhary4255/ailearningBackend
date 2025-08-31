@@ -29,7 +29,7 @@ productSchema.plugin(mongoosePaginate);
 productSchema.plugin(aggregatePaginate);
 
 const ProductModel = mongoose.model<Product & mongoose.Document>(
-  'Product',
+  'product',
   productSchema
 );
 export default ProductModel;
