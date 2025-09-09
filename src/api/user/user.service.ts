@@ -17,6 +17,14 @@ public getAllUsers = async()=>{
 public getUserById = async(id:string)=>{
   return this.user.findById(id).lean();
 }
+
+public getUserData =  async(userId : string)=>{
+  try{
+     
+  }catch(error){
+
+  }
+}
 }
 
 

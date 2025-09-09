@@ -15,7 +15,7 @@ class UserProductServices {
   checkProductBuyExist = async (productId: string, quantity: number) => {
     try {
       const getProductDbData = await this.product
-        .findOne({ _id: productId })
+        .findOne({ _id: productId ,  type : { $ne: 'service' } })
         .lean();
       if (!getProductDbData) {
         throw new HttpException(STATUS_CODE.NOT_FOUND, 'Product not found');

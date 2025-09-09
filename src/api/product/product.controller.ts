@@ -46,15 +46,15 @@ class ProductContoller implements Controller {
     this.router.post(
       `${this.path}/createPrdouctAndCourses`,
        authMiddleware,
-       roleMiddleware([[USER_CONSTANT.ROLES.admin]]),
-       upload.single('image'),
+      //  roleMiddleware([[USER_CONSTANT.ROLES.admin]]),
+      //  upload.single('image'),
       this.productAndServiceValidation.createProductAndCoursesValidation(),
       this.createPrdouctAndCourses
     );   
 
     this.router.get(
       `${this.path}/getAllProductsAndServices`,
-      authMiddleware,
+      // authMiddleware,
       this.getAllProductsAndServices
     );
 
@@ -86,17 +86,16 @@ class ProductContoller implements Controller {
         category,
         inStock,
         rating,
+        image,
         numberOfProducts,
         type
       } = req.body;
-      const image = req.file;
-       console.log("req.file",image);
       const productData: Product = {
         name,
         description,
         price,
         category,
-        image : req.file ? req.file.path : '',
+        image ,
         inStock,
         rating,
         numberOfProducts,
@@ -215,7 +214,7 @@ class ProductContoller implements Controller {
     }
   };
 
-  
+
 }
 
 export default ProductContoller;
