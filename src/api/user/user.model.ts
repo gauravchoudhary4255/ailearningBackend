@@ -12,12 +12,7 @@ const userSchema = new mongoose.Schema(
     type: String,
       enum: USER_CONSTANT.ROLES_ARRAY,
       index: true
-   },
-    numericId: {
-      type: Number,
-      default: 0,
-      index: true
-    },
+   }
   },
   {
     timestamps: true,
@@ -52,27 +47,27 @@ userSchema.plugin(aggregatePaginate);
 //   next();
 // });
 
-userSchema.pre('save', async function (next) {
-  const doc = this;
+// userSchema.pre('save', async function (next) {
+//   const doc = this;
 
-  if (!doc.numericId) {
-    const count = await UserModel.countDocuments();
+//   if (!doc.numericId) {
+//     const count = await UserModel.countDocuments();
 
-    if (count === 0) {
-      doc.numericId = 1;
-    } else {
-      const maxNumber: any = await UserModel.findOneAndUpdate(
-        {},
-        { $inc: { numericId: 1 } },
-        { sort: { numericId: -1 }, new: true }
-      );
+//     if (count === 0) {
+//       doc.numericId = 1;
+//     } else {
+//       const maxNumber: any = await UserModel.findOneAndUpdate(
+//         {},
+//         { $inc: { numericId: 1 } },
+//         { sort: { numericId: -1 }, new: true }
+//       );
 
-      doc.numericId = maxNumber.numericId;
-    }
-  }
+//       doc.numericId = maxNumber.numericId;
+//     }
+//   }
 
-  next();
-});
+//   next();
+// });
 
 const UserModel = mongoose.model<User & mongoose.Document>('User', userSchema);
 
