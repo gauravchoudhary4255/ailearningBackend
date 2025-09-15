@@ -7,7 +7,7 @@ import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 const promptSchema = new mongoose.Schema(
   {
     promptData: { type: String, required: true },
-    serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true }
+    serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'products', required: true }
   },
   {
     timestamps: true,

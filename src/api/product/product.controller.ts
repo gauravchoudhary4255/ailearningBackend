@@ -60,7 +60,7 @@ class ProductContoller implements Controller {
 
     this.router.post(
         `${this.path}/getProductAndServiceById`,
-        authMiddleware,
+        // authMiddleware,
         this.productAndServiceValidation.getProductAndServiceBy(),
         this.getProductAndServiceById
     )

@@ -4,11 +4,10 @@ import HttpException from '../../utils/httpException';
 import Logger from '../../logger';
 import ProductModel from '../product/product.model';
 import { STATUS_CODE, ERROR_MESSAGES } from '../../constant';
-import { GoogleGenAI } from '@google/genai';
-import getconfig from '../../config';
+
 import { Types } from 'mongoose';
 import { name } from 'ejs';
-const { GEMINI_API_KEY } = getconfig();
+
 class UserProductServices {
   public userBuyProduct = userBuyProductModel;
   public product = ProductModel;
@@ -101,12 +100,4 @@ class UserProductServices {
 }
 
 export default UserProductServices;
-// console.log("GEMINI_API_KEY",GEMINI_API_KEY);
-// const ai = new GoogleGenAI({apiKey : GEMINI_API_KEY});
 
-//   const response = await ai.models.generateContent({
-//     model: 'gemini-2.5-flash',
-//     contents: 'How we define function python give with code snippet?'
-//   });
-
-// const getDta = response;

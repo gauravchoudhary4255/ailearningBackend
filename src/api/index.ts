@@ -4,11 +4,13 @@ import ProductContoller from './product/product.controller';
 import UserProductBuyController from './userBuyProduct/userBuyProduct.controller';
 import SubscriptController from './subscription/subscription.controller';
 import PromptController from './fineTuningPrompt/prompt.controller';
+import AiLearningAgent from './aiLearningAgent/aiLearningAgent.controller';
 export = [
   new AuthController(),
   new UserController(),
   new ProductContoller(),
   new UserProductBuyController(),
   new SubscriptController(),
-  new PromptController()
+  new PromptController(),
+  new AiLearningAgent()
 ];
